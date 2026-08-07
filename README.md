@@ -25,13 +25,10 @@ The pipeline incorporates schema evolution, data standardization, deduplication,
 
 ## Data 
 
-- `orders (Fact)`
-- `order_items (Dim)`
-- `customers (Dim)`
-- `products (Dim)`
-
-## Data Model
-![Data Model](DataModel.png)
+- `orders`
+- `order_items`
+- `customers`
+- `products`
 
 ## Layer Design
 
@@ -61,18 +58,8 @@ The pipeline incorporates schema evolution, data standardization, deduplication,
   - `gold.kpi_daily_sales`
 - SQL transformations for BI/semantic model compatibility.
 
-## Execution Order (Databricks Workflows)
-
-1. `01_bronze_ingestion.py`
-2. `02_silver_transformations.py`
-3. `03_gold_aggregations.sql`
-
-## Runtime Requirements
-
-- Databricks Runtime 13.3+ (or newer) with Delta Lake.
-- Unity Catalog enabled (recommended).
-- ADLS Gen2
-- Python 3.10+
+## Data Model
+![Data Model](DataModel.png)
 
 ## Parameterization
 
@@ -95,3 +82,17 @@ All jobs use widgets and/or configuration file values:
 - Rejected-record sink for invalid source records.
 - Audit columns (`created_ts`, `updated_ts`, `pipeline_run_id`).
 - Partition strategy on high-volume facts (`order_date`).
+
+## Execution Order (Databricks Workflows)
+
+1. `01_bronze_ingestion.py`
+2. `02_silver_transformations.py`
+3. `03_gold_aggregations.sql`
+
+## Runtime Requirements
+
+- Databricks Runtime 13.3+ (or newer) with Delta Lake.
+- Unity Catalog enabled (recommended).
+- ADLS Gen2
+- Python 3.10+
+
