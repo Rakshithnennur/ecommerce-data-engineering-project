@@ -9,6 +9,14 @@ The pipeline incorporates schema evolution, data standardization, deduplication,
 ## Architecture
 ![Project Architecture](Architecture.png)
 
+## Technologies Used
+
+- **Programming Languages:** Python, SQL
+- **Data Processing:** Apache Spark (PySpark, Spark SQL)
+- **Data Storage:** Delta Lake, Azure Data Lake Storage Gen2 (ADLS Gen2)
+- **Databricks:** Databricks, Auto Loader (cloudFiles), Unity Catalog, Databricks Workflows
+- **Version Control:** Git, GitHub
+
 ## Databricks End-to-End Medallion Pipeline (PySpark + SQL)
 
 - **Bronze**: Raw ingestion from cloud object storage with schema evolution and audit metadata.
@@ -21,6 +29,9 @@ The pipeline incorporates schema evolution, data standardization, deduplication,
 - `order_items (Dim)`
 - `customers (Dim)`
 - `products (Dim)`
+
+## Data Model
+![Data Model](DataModel.png)
 
 ## Layer Design
 
@@ -52,9 +63,9 @@ The pipeline incorporates schema evolution, data standardization, deduplication,
 
 ## Execution Order (Databricks Workflows)
 
-1. `pipelines/pyspark/01_bronze_ingestion.py`
-2. `pipelines/pyspark/02_silver_transformations.py`
-3. `pipelines/sql/03_gold_aggregations.sql`
+1. `01_bronze_ingestion.py`
+2. `02_silver_transformations.py`
+3. `03_gold_aggregations.sql`
 
 ## Runtime Requirements
 
@@ -84,14 +95,3 @@ All jobs use widgets and/or configuration file values:
 - Rejected-record sink for invalid source records.
 - Audit columns (`created_ts`, `updated_ts`, `pipeline_run_id`).
 - Partition strategy on high-volume facts (`order_date`).
-
-## Getting Started
-
-1. Clone the repository.
-2. Install dependencies.
-3. Configure Databricks.
-4. Upload sample data.
-5. Run the Bronze pipeline.
-6. Run the Silver pipeline.
-7. Execute the Gold SQL script.
-  
