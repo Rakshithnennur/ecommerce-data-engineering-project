@@ -1,0 +1,28 @@
+pipeline:
+  catalog_name: main
+  bronze_schema: bronze
+  silver_schema: silver
+  gold_schema: gold
+
+sources:
+  base_path: dbfs:/mnt/raw/ecommerce
+  checkpoint_base_path: dbfs:/mnt/checkpoints/ecommerce
+  schema_base_path: dbfs:/mnt/schemas/ecommerce
+
+entities:
+  - name: orders
+    primary_keys: [order_id]
+    event_ts_column: order_ts
+    partition_columns: [order_date]
+  - name: order_items
+    primary_keys: [order_item_id]
+    event_ts_column: order_ts
+    partition_columns: [order_date]
+  - name: customers
+    primary_keys: [customer_id]
+    event_ts_column: updated_at
+    partition_columns: []
+  - name: products
+    primary_keys: [product_id]
+    event_ts_column: updated_at
+    partition_columns: []
